@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2026-06-29
 
-First public release. Design frozen for this major version.
+First public release of **Idium Home Assistant**. Design frozen for this major version.
 
 ### Added
 
@@ -39,4 +39,4 @@ First public release. Design frozen for this major version.
 - Entity IDs in the generator reflect a reference home; customize via `config/idium.json` and edit the generator for full room/scene mapping.
 - Deploying `.storage` dashboard files requires **one** Home Assistant restart.
 
-[1.0.0]: https://github.com/YOUR_ORG/idium/releases/tag/v1.0.0
+[1.0.0]: https://github.com/simonhatfield/idium-home-assistant/releases/tag/v1.0.0

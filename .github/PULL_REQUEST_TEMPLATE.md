@@ -21,7 +21,3 @@
 - [ ] CHANGELOG updated (if user-visible)
 - [ ] Documentation updated (if needed)
 - [ ] No secrets or personal entity IDs committed
-
-## Screenshots
-
-<!-- If UI-visible, before/after screenshots -->

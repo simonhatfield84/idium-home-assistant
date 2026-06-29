@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="Idium — A calm operating system for Home Assistant" width="100%" />
+  <img src="assets/banner.svg" alt="Idium Home Assistant" width="100%" />
 </p>
 
 <p align="center">
@@ -9,7 +9,7 @@
   <a href="https://hacs.xyz/"><img src="https://img.shields.io/badge/HACS-Theme-328EF5.svg" alt="HACS compatible" /></a>
 </p>
 
-**Idium** is a design system and dashboard generator for [Home Assistant](https://www.home-assistant.io/). It turns Lovelace into a calm, premium smart-home interface — closer to Apple Home or a dedicated control panel than a default HA dashboard.
+**Idium Home Assistant** is a design system and dashboard generator for [Home Assistant](https://www.home-assistant.io/). It turns Lovelace into a calm, premium smart-home interface — closer to Apple Home or a dedicated control panel than a default HA dashboard.
 
 Luxury comes from restraint: typography leads, colour communicates state, and the UI stays out of the way.
 
@@ -24,14 +24,6 @@ Luxury comes from restraint: typography leads, colour communicates state, and th
 - **Optional helpers package** — light groups, door summary sensor, office scene tracking (example YAML included)
 - **HACS-ready themes** — install themes via HACS; run the generator for full dashboards
 
-## Screenshots
-
-| Home | Office (desktop) | Mobile nav |
-|------|------------------|------------|
-| ![Home overview](docs/screenshots/home.svg) | ![Office panel](docs/screenshots/office.svg) | ![Mobile navigation](docs/screenshots/mobile.svg) |
-
-Replace placeholder SVGs with real screenshots before your first release — see [docs/screenshots/README.md](docs/screenshots/README.md).
-
 ## Quick start
 
 ### 1. Prerequisites
@@ -44,11 +36,11 @@ Install via [HACS](https://hacs.xyz/):
 
 Enable the **Recorder** integration (required for climate sparklines).
 
-### 2. Install Idium themes (HACS)
+### 2. Install themes (HACS)
 
 1. HACS → **Frontend** → **Explore & download repositories**
-2. Add custom repository: `https://github.com/YOUR_ORG/idium` (category: **Theme**)
-3. Install **Idium**
+2. Add custom repository: `https://github.com/simonhatfield/idium-home-assistant` (category: **Theme**)
+3. Install **Idium Home Assistant**
 4. Profile → **Theme** → select **idium_dark** (or **idium_light**)
 
 Or manually copy `themes/` into your HA `config/themes/` and reload themes.
@@ -93,7 +85,7 @@ Restart once after adding packages.
 ## Repository layout
 
 ```
-idium/
+idium-home-assistant/
 ├── assets/              # Logo, banner, branding
 ├── config/              # User config (example + local idium.json)
 ├── docs/                # Documentation
@@ -147,12 +139,12 @@ Report vulnerabilities privately — see [SECURITY.md](SECURITY.md).
 
 ## License
 
-[MIT License](LICENSE) © Idium Contributors
+[MIT License](LICENSE) © Simon Hatfield
 
 ---
 
 <p align="center">
   <img src="assets/logo-mark.svg" alt="" width="48" height="48" />
   <br />
-  <sub>Built for Home Assistant · Not affiliated with Home Assistant Core</sub>
+  <sub>Idium Home Assistant · Not affiliated with Home Assistant Core</sub>
 </p>

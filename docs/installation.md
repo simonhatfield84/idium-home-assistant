@@ -1,6 +1,6 @@
 # Installation
 
-This guide installs Idium on a standard Home Assistant OS or Container setup.
+This guide installs Idium Home Assistant on a standard Home Assistant OS or Container setup.
 
 ## Requirements
 
@@ -25,7 +25,7 @@ Install before deploying dashboards:
 
 ## Option A — Themes only (HACS)
 
-1. Add Idium as a custom HACS repository (category: **Theme**)
+1. Add Idium Home Assistant as a custom HACS repository (category: **Theme**)
 2. Install and reload themes
 3. Set your user profile theme to **idium_dark**
 
@@ -36,8 +36,8 @@ You keep your existing dashboards; only the theme changes.
 ### Step 1 — Clone or download
 
 ```bash
-git clone https://github.com/YOUR_ORG/idium.git
-cd idium
+git clone https://github.com/simonhatfield/idium-home-assistant.git
+cd idium-home-assistant
 ```
 
 ### Step 2 — Install themes

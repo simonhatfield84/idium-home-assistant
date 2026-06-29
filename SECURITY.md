@@ -10,11 +10,7 @@
 
 **Please do not open public GitHub issues for security vulnerabilities.**
 
-Email the maintainers (replace with your contact before publishing):
-
-- **security@your-domain.example**
-
-Include:
+Email **simonhatfield@me.com** with:
 
 - Description of the issue
 - Steps to reproduce
@@ -27,9 +23,9 @@ We aim to acknowledge reports within **72 hours** and provide a fix timeline wit
 
 In scope:
 
-- Idium generator scripts (`generator/`, `scripts/`)
+- Idium Home Assistant generator scripts (`generator/`, `scripts/`)
 - Example packages that could lead to unsafe HA configuration if copied blindly
-- Documentation that instructs insecure deployment (e.g. exposing secrets)
+- Documentation that instructs insecure deployment
 
 Out of scope:
 

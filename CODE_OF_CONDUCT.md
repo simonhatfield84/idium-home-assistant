@@ -2,7 +2,7 @@
 
 ## Our pledge
 
-We pledge to make participation in Idium a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+We pledge to make participation in Idium Home Assistant a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 ## Our standards
 
@@ -12,7 +12,7 @@ We pledge to make participation in Idium a harassment-free experience for everyo
 
 ## Enforcement
 
-Report unacceptable behaviour to the maintainers at **conduct@your-domain.example**. All complaints will be reviewed and investigated promptly and fairly.
+Report unacceptable behaviour to **simonhatfield@me.com**. All complaints will be reviewed and investigated promptly and fairly.
 
 Maintainers may remove, edit, or reject contributions that violate this Code of Conduct.
 

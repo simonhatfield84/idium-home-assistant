@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Idium — Home Assistant dashboard generator.
+Idium Home Assistant — dashboard generator.
 
-See https://github.com/idium-hass/idium for documentation.
+See https://github.com/simonhatfield/idium-home-assistant for documentation.
 """
 from __future__ import annotations
 
@@ -1389,4 +1389,4 @@ if __name__ == "__main__":
     out = Path(os.environ.get("IDIUM_MANIFEST", out_dir / "ha_write_manifest.json"))
     with open(out, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
-    print(f"Idium {VERSION}: generated {len(manifest)} dashboard files → {out}")
+    print(f"Idium Home Assistant {VERSION}: generated {len(manifest)} dashboard files → {out}")

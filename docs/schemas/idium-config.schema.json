@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/idium-hass/idium/docs/schemas/idium-config.schema.json",
-  "title": "Idium configuration",
+  "$id": "https://github.com/simonhatfield/idium-home-assistant/docs/schemas/idium-config.schema.json",
+  "title": "Idium Home Assistant configuration",
   "type": "object",
   "additionalProperties": false,
   "required": ["owner_name", "theme", "entities"],
