@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Idium logo">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#30D158"/>
+      <stop offset="100%" stop-color="#5DA3FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#0B0D10"/>
+  <circle cx="256" cy="256" r="148" fill="none" stroke="url(#g)" stroke-width="18" opacity="0.95"/>
+  <circle cx="256" cy="256" r="22" fill="#30D158"/>
+  <path d="M256 108 L256 188 M256 324 L256 404 M108 256 L188 256 M324 256 L404 256" stroke="#F5F7FA" stroke-width="14" stroke-linecap="round" opacity="0.85"/>
+</svg>

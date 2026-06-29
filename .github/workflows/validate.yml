@@ -1,0 +1,48 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile generator
+        run: python3 -m py_compile generator/idium_gen.py
+
+      - name: Generate manifest
+        run: ./scripts/generate.sh
+
+      - name: Validate manifest JSON
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("dist/ha_write_manifest.json")
+          data = json.loads(p.read_text())
+          assert len(data) == 12, f"expected 12 files, got {len(data)}"
+          for k, v in data.items():
+              assert k.startswith(".storage/"), k
+              json.loads(v)
+          print("OK:", len(data), "files")
+          PY
+
+      - name: Validate theme YAML structure
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          for f in Path("themes").glob("*.yaml"):
+              text = f.read_text()
+              assert "idium_" in text, f
+              assert "primary-background-color" in text, f
+          print("OK: themes")
+          PY

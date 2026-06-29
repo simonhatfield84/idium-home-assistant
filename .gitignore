@@ -1,0 +1,23 @@
+# Generated dashboard manifest (reproducible via generator)
+dist/
+
+# Local configuration (copy from example)
+config/idium.json
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+__pycache__/
+*.pyc
+.Python
+.env
+.venv/
+venv/
+
+# Secrets
+*.pem
+*.key
+secrets.yaml

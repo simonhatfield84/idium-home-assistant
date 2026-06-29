@@ -1,0 +1,19 @@
+{
+  "$schema": "../docs/schemas/idium-config.schema.json",
+  "owner_name": "Home",
+  "theme": "idium_dark",
+  "entities": {
+    "alarm": "alarm_control_panel.alarm",
+    "whole_house_lights": "light.all_lights",
+    "weather": "weather.forecast_home",
+    "doors_status": "sensor.doors_status",
+    "home_average_temperature": "sensor.home_average_temperature",
+    "home_average_humidity": "sensor.home_average_humidity",
+    "office_all_lights": "light.office_all_lights",
+    "office_halo": "light.office_panel_light_controller",
+    "office_room_lights": "light.office_room_lights",
+    "office_media_player": "media_player.office_speaker",
+    "office_active_scene": "input_select.office_active_scene",
+    "living_room_lights": "light.living_room"
+  }
+}

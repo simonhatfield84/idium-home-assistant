@@ -1,0 +1,64 @@
+# Idium Design System v1.0 — Dark
+idium_dark:
+  primary-background-color: "#0B0D10"
+  secondary-background-color: "#0B0D10"
+  card-background-color: "#0B0D10"
+  paper-card-background-color: "#0B0D10"
+  ha-card-background: "#0B0D10"
+  app-header-background-color: "#0B0D10"
+  sidebar-background-color: "#0B0D10"
+
+  primary-font-family: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', Inter, system-ui, sans-serif"
+  paper-font-common-base_-_font-family: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', Inter, system-ui, sans-serif"
+  paper-font-headline_-_font-family: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, system-ui, sans-serif"
+  paper-font-title_-_font-family: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, system-ui, sans-serif"
+  paper-font-body1_-_font-family: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, system-ui, sans-serif"
+  paper-font-subhead_-_font-family: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, system-ui, sans-serif"
+
+  primary-text-color: "#F5F7FA"
+  secondary-text-color: "#A3A8B1"
+  text-primary-color: "#F5F7FA"
+  text-secondary-color: "#A3A8B1"
+  disabled-text-color: "#6E737B"
+
+  ha-card-border-radius: "16px"
+  ha-card-box-shadow: "none"
+  ha-card-border-width: "0px"
+  divider-color: "rgba(44, 49, 56, 0.5)"
+
+  state-icon-color: "#6E737B"
+  state-icon-active-color: "#F5F7FA"
+  state-icon-unavailable-color: "#48484A"
+
+  primary-color: "#30D158"
+  accent-color: "#F5B14C"
+  dark-primary-color: "#30D158"
+  light-primary-color: "#30D158"
+
+  label-badge-blue: "#5DA3FF"
+  label-badge-yellow: "#F5B14C"
+  label-badge-orange: "#FF8A3D"
+  label-badge-red: "#FF5A5A"
+  label-badge-green: "#30D158"
+  label-badge-grey: "#6E737B"
+
+  switch-checked-color: "#F5B14C"
+  paper-slider-knob-color: "#F5F7FA"
+  paper-slider-active-color: "#F5B14C"
+  paper-slider-container-color: "#2C3138"
+  paper-toggle-button-checked-button-color: "#F5B14C"
+
+  sidebar-text-color: "#A3A8B1"
+  sidebar-icon-color: "#6E737B"
+  sidebar-selected-text-color: "#F5F7FA"
+  sidebar-selected-icon-color: "#F5F7FA"
+
+  mush-rgb-state-entity: "245, 247, 250"
+  mush-rgb-grey: "110, 115, 123"
+  mush-rgb-blue: "93, 163, 255"
+  mush-rgb-amber: "245, 177, 76"
+
+  modes:
+    dark:
+      primary-color: "#30D158"
+      accent-color: "#F5B14C"

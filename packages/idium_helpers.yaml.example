@@ -1,0 +1,553 @@
+# Idium Helpers — Example Package
+#
+# Copy to: config/packages/idium_helpers.yaml
+# Requires: homeassistant.packages !include_dir_named packages
+#
+# CUSTOMIZE all entity IDs before use. This file ships with reference
+# entity names from the Idium reference home — not universal defaults.
+#
+# After editing: restart Home Assistant once.
+#
+# See docs/configuration.md
+light:
+  - platform: group
+    name: Living Room Ceiling
+    unique_id: living_room_ceiling_lights
+    entities:
+      - light.living_room_left
+      - light.living_room_right
+      - light.living_room_middle
+
+  - platform: group
+    name: Living Room Pendants
+    unique_id: living_room_pendant_lights
+    entities:
+      - light.living_room_low_pendant
+      - light.living_room_pendant_high
+
+  - platform: group
+    name: Dining Room Ceiling
+    unique_id: dining_room_ceiling_lights
+    entities:
+      - light.dining_hue_ambiance_candle_1
+      - light.dining_hue_ambiance_candle_2
+      - light.dining_hue_ambiance_candle_3
+      - light.dining_hue_ambiance_candle_4
+      - light.dining_hue_ambiance_candle_5
+      - light.dining_hue_ambiance_candle_6
+
+  - platform: group
+    name: Dining Room Lamps
+    unique_id: dining_room_lamp_lights
+    entities:
+      - light.dining_floor_lamp_door
+      - light.dining_floor_window_lamp
+
+  - platform: group
+    name: Office Room Lights
+    unique_id: office_room_lights
+    entities:
+      - light.office_hue_filament_bulb_1
+      - light.office_hue_filament_bulb_2
+      - light.office_hue_filament_bulb_3
+
+  - platform: group
+    name: Office All Lights
+    unique_id: office_all_lights
+    entities:
+      - light.office_room_lights
+      - light.office_panel_light_controller
+
+template:
+  - sensor:
+
+      - name: Home Average Temperature
+        unique_id: home_average_temperature
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+        state: >
+          {% set sensors = [
+            'sensor.temperature_temperature',
+            'sensor.living_room_living_room_temperature_temperature',
+            'sensor.dressing_room_temperature_temperature',
+            'sensor.hue_motion_sensor_1_downstairs_temperature',
+            'sensor.hue_motion_sensor_1_landing_temperature',
+            'sensor.thermostat_1_current_temperature'
+          ] %}
+          {% set ns = namespace(values=[]) %}
+          {% for s in sensors %}
+            {% if states(s) not in ['unknown', 'unavailable', 'none', ''] %}
+              {% set ns.values = ns.values + [states(s) | float(0)] %}
+            {% endif %}
+          {% endfor %}
+          {{ (ns.values | sum / (ns.values | length)) | round(1) if ns.values | length > 0 else 'unknown' }}
+
+      - name: Home Average Humidity
+        unique_id: home_average_humidity
+        unit_of_measurement: "%"
+        device_class: humidity
+        state_class: measurement
+        state: >
+          {% set sensors = [
+            'sensor.temperature_humidity',
+            'sensor.living_room_living_room_temperature_humidity',
+            'sensor.dressing_room_temperature_humidity'
+          ] %}
+          {% set ns = namespace(values=[]) %}
+          {% for s in sensors %}
+            {% if states(s) not in ['unknown', 'unavailable', 'none', ''] %}
+              {% set ns.values = ns.values + [states(s) | float(0)] %}
+            {% endif %}
+          {% endfor %}
+          {{ (ns.values | sum / (ns.values | length)) | round(1) if ns.values | length > 0 else 'unknown' }}
+
+      - name: Doors Status
+        unique_id: doors_status_summary
+        state: >
+          {% set open = [] %}
+          {% if is_state('binary_sensor.front_door_sensor_open', 'on') %}
+            {% set open = open + ['Front Door'] %}
+          {% endif %}
+          {% if is_state('binary_sensor.garage_sensor_open', 'on') %}
+            {% set open = open + ['Garage'] %}
+          {% endif %}
+          {% if is_state('binary_sensor.lounge_doors_sensor_open', 'on') %}
+            {% set open = open + ['Lounge Doors'] %}
+          {% endif %}
+          {{ 'All Closed' if open | length == 0 else open | join(', ') ~ ' Open' }}
+        icon: >
+          {% if is_state('binary_sensor.front_door_sensor_open', 'on')
+                or is_state('binary_sensor.garage_sensor_open', 'on')
+                or is_state('binary_sensor.lounge_doors_sensor_open', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+
+input_boolean:
+  office_scene_applying:
+    name: Office Scene Applying
+    initial: false
+
+input_select:
+  office_active_scene:
+    name: Office Active Scene
+    options:
+      - None
+      - Custom
+      - Working
+      - Natural
+      - Read
+      - Relax
+      - Focus
+      - Night
+      - Chill
+      - Blood
+      - Rest
+      - Energy
+    initial: None
+
+  home_active_scene:
+    name: Home Active Scene
+    options:
+      - None
+      - Good Night
+      - Movie
+      - Home
+      - Away
+      - Morning
+      - Sleep
+      - Guests
+      - Christmas
+    initial: None
+
+script:
+  office_scene_working:
+    alias: Office Scene - Working
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.office_scene_applying
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Working
+      - action: scene.turn_on
+        target:
+          entity_id: scene.office_office_working
+      - action: light.turn_on
+        target:
+          entity_id: light.office_panel_light_controller
+        data:
+          brightness: 255
+          color_temp_kelvin: 4200
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.office_scene_applying
+
+  office_scene_natural_light:
+    alias: Office Scene - Natural Light
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.office_scene_applying
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Natural
+      - action: scene.turn_on
+        target:
+          entity_id: scene.office_office_natural_light
+      - action: light.turn_on
+        target:
+          entity_id: light.office_panel_light_controller
+        data:
+          brightness: 255
+          color_temp_kelvin: 2700
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.office_scene_applying
+
+  office_scene_read:
+    alias: Office Scene - Read
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.office_scene_applying
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Read
+      - action: scene.turn_on
+        target:
+          entity_id: scene.office_office_read
+      - action: light.turn_on
+        target:
+          entity_id: light.office_panel_light_controller
+        data:
+          brightness: 255
+          rgb_color: [255, 197, 143]
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.office_scene_applying
+
+  office_scene_relax:
+    alias: Office Scene - Relax
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.office_scene_applying
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Relax
+      - action: scene.turn_on
+        target:
+          entity_id: scene.office_office_relax
+      - action: light.turn_on
+        target:
+          entity_id: light.office_panel_light_controller
+        data:
+          brightness: 255
+          rgb_color: [255, 160, 220]
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.office_scene_applying
+
+  office_scene_concentrate:
+    alias: Office Scene - Concentrate
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.office_scene_applying
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Focus
+      - action: scene.turn_on
+        target:
+          entity_id: scene.office_office_concentrate
+      - action: light.turn_on
+        target:
+          entity_id: light.office_panel_light_controller
+        data:
+          brightness: 255
+          rgb_color: [100, 180, 255]
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.office_scene_applying
+
+  office_scene_nightlight:
+    alias: Office Scene - Nightlight
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.office_scene_applying
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Night
+      - action: scene.turn_on
+        target:
+          entity_id: scene.office_office_nightlight
+      - action: light.turn_on
+        target:
+          entity_id: light.office_panel_light_controller
+        data:
+          brightness: 80
+          rgb_color: [255, 120, 50]
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.office_scene_applying
+
+  office_scene_chilling:
+    alias: Office Scene - Chilling
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.office_scene_applying
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Chill
+      - action: scene.turn_on
+        target:
+          entity_id: scene.office_office_chilling
+      - action: light.turn_on
+        target:
+          entity_id: light.office_panel_light_controller
+        data:
+          brightness: 255
+          rgb_color: [120, 200, 255]
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.office_scene_applying
+
+  office_scene_blood_moon:
+    alias: Office Scene - Blood Moon
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.office_scene_applying
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Blood
+      - action: scene.turn_on
+        target:
+          entity_id: scene.office_office_blood_moon
+      - action: light.turn_on
+        target:
+          entity_id: light.office_panel_light_controller
+        data:
+          brightness: 255
+          rgb_color: [255, 40, 20]
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.office_scene_applying
+
+  office_scene_rest:
+    alias: Office Scene - Rest
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.office_scene_applying
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Rest
+      - action: scene.turn_on
+        target:
+          entity_id: scene.office_office_rest
+      - action: light.turn_on
+        target:
+          entity_id: light.office_panel_light_controller
+        data:
+          brightness: 255
+          rgb_color: [255, 140, 90]
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.office_scene_applying
+
+  office_scene_energise:
+    alias: Office Scene - Energise
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.office_scene_applying
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Energy
+      - action: scene.turn_on
+        target:
+          entity_id: scene.office_office_energise
+      - action: light.turn_on
+        target:
+          entity_id: light.office_panel_light_controller
+        data:
+          brightness: 255
+          rgb_color: [0, 200, 255]
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.office_scene_applying
+
+  home_scene_good_night:
+    alias: Home Scene - Good Night
+    sequence:
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.home_active_scene
+        data:
+          option: Good Night
+      - action: scene.turn_on
+        target:
+          entity_id:
+            - scene.master_bedroom_master_bedroom_nightlight
+            - scene.hallway_hallway_nightlight
+            - scene.landing_landing_nightlight
+            - scene.kitchen_kitchen_nightlight
+      - action: light.turn_off
+        target:
+          entity_id: light.living_room_living_room
+
+  home_scene_movie:
+    alias: Home Scene - Movie
+    sequence:
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.home_active_scene
+        data:
+          option: Movie
+      - action: scene.turn_on
+        target:
+          entity_id: scene.living_room_living_room_watching_tv
+
+  home_scene_home:
+    alias: Home Scene - Home
+    sequence:
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.home_active_scene
+        data:
+          option: Home
+      - action: scene.turn_on
+        target:
+          entity_id:
+            - scene.living_room_living_room_bright
+            - scene.kitchen_kitchen_bright
+
+  home_scene_away:
+    alias: Home Scene - Away
+    sequence:
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.home_active_scene
+        data:
+          option: Away
+      - action: light.turn_off
+        target:
+          entity_id: light.whole_house
+
+  home_scene_morning:
+    alias: Home Scene - Morning
+    sequence:
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.home_active_scene
+        data:
+          option: Morning
+      - action: scene.turn_on
+        target:
+          entity_id:
+            - scene.master_bedroom_master_bedroom_energise
+            - scene.kitchen_kitchen_bright
+
+  home_scene_sleep:
+    alias: Home Scene - Sleep
+    sequence:
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.home_active_scene
+        data:
+          option: Sleep
+      - action: scene.turn_on
+        target:
+          entity_id: scene.master_bedroom_master_bedroom_bedtime
+
+  home_scene_guests:
+    alias: Home Scene - Guests
+    sequence:
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.home_active_scene
+        data:
+          option: Guests
+      - action: scene.turn_on
+        target:
+          entity_id:
+            - scene.living_room_living_room_relax
+            - scene.dining_dining_relax
+            - scene.kitchen_kitchen_bright
+
+  home_scene_christmas:
+    alias: Home Scene - Christmas
+    sequence:
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.home_active_scene
+        data:
+          option: Christmas
+      - action: scene.turn_on
+        target:
+          entity_id:
+            - scene.porch_porch_bright
+            - scene.living_room_living_room_bright
+            - scene.dining_dining_relax
+
+automation:
+  - id: office_scene_custom_on_manual_change
+    alias: Office - Mark scene as Custom on manual light change
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id:
+          - light.office_hue_filament_bulb_1
+          - light.office_hue_filament_bulb_2
+          - light.office_hue_filament_bulb_3
+          - light.office_panel_light_controller
+        attribute:
+          - brightness
+          - color_temp
+          - color_temp_kelvin
+          - rgb_color
+          - hs_color
+          - xy_color
+    condition:
+      - condition: state
+        entity_id: input_boolean.office_scene_applying
+        state: "off"
+      - condition: template
+        value_template: "{{ states('input_select.office_active_scene') not in ['None', 'Custom'] }}"
+    action:
+      - delay: "00:00:02"
+      - condition: state
+        entity_id: input_boolean.office_scene_applying
+        state: "off"
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.office_active_scene
+        data:
+          option: Custom
+

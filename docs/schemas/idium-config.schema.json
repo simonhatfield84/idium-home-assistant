@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/idium-hass/idium/docs/schemas/idium-config.schema.json",
+  "title": "Idium configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["owner_name", "theme", "entities"],
+  "properties": {
+    "owner_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Name shown in the Home greeting"
+    },
+    "theme": {
+      "type": "string",
+      "enum": ["idium_dark", "idium_light"]
+    },
+    "entities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alarm",
+        "whole_house_lights",
+        "weather",
+        "doors_status",
+        "home_average_temperature",
+        "home_average_humidity",
+        "office_all_lights",
+        "office_halo",
+        "office_media_player",
+        "office_active_scene",
+        "living_room_lights"
+      ],
+      "properties": {
+        "alarm": { "type": "string" },
+        "whole_house_lights": { "type": "string" },
+        "weather": { "type": "string" },
+        "doors_status": { "type": "string" },
+        "home_average_temperature": { "type": "string" },
+        "home_average_humidity": { "type": "string" },
+        "office_all_lights": { "type": "string" },
+        "office_halo": { "type": "string" },
+        "office_room_lights": { "type": "string" },
+        "office_media_player": { "type": "string" },
+        "office_active_scene": { "type": "string" },
+        "living_room_lights": { "type": "string" }
+      }
+    }
+  }
+}

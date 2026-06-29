@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest an improvement (UI changes need design-review)
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Design freeze:** v1.0.x visual design is frozen. Layout or colour changes require **design-review** approval.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What problem does this solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+
+  - type: dropdown
+    id: design-impact
+    attributes:
+      label: Does this change Idium v1.0 visual design?
+      options:
+        - "No — docs, config, or generator portability only"
+        - "Yes — requires design-review"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Acknowledgement
+      options:
+        - label: I have searched existing issues for duplicates
+          required: true
