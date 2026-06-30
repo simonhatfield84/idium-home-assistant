@@ -6,145 +6,96 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License" /></a>
   <a href="VERSION"><img src="https://img.shields.io/badge/version-1.0.0-green.svg" alt="Version 1.0.0" /></a>
   <a href="https://www.home-assistant.io/"><img src="https://img.shields.io/badge/Home%20Assistant-2024.2+-41BDF5.svg" alt="Home Assistant 2024.2+" /></a>
-  <a href="https://hacs.xyz/"><img src="https://img.shields.io/badge/HACS-Theme-328EF5.svg" alt="HACS compatible" /></a>
 </p>
 
-**Idium Home Assistant** is a design system and dashboard generator for [Home Assistant](https://www.home-assistant.io/). It turns Lovelace into a calm, premium smart-home interface — closer to Apple Home or a dedicated control panel than a default HA dashboard.
+This is my [Home Assistant](https://www.home-assistant.io/) dashboard setup — themes, a Python generator that spits out Lovelace JSON, and the YAML helpers I use at home.
 
-Luxury comes from restraint: typography leads, colour communicates state, and the UI stays out of the way.
+I built it because the default dashboards never quite felt right on a phone or a wall tablet. If something here is useful for your place, help yourself. It will need tailoring to your entities and rooms.
 
 ---
 
-## Features
+## What's in here
 
-- **Design system** — dark (and light) themes, semantic colour tokens, typography scale, spacing grid
-- **Dashboard generator** — Python generator produces storage-mode Lovelace JSON for Home, rooms, Security, Climate, and Office layouts
-- **Mobile-first navigation** — compact two-row room pills plus secondary “More” section
-- **Mushroom + card-mod stack** — built on community cards, not custom frontend code
-- **Optional helpers package** — light groups, door summary sensor, office scene tracking (example YAML included)
-- **HACS-ready themes** — install themes via HACS; run the generator for full dashboards
+- **Themes** — `idium_dark` and `idium_light` in `themes/`
+- **Generator** — `generator/idium_gen.py` writes storage-mode dashboard files for Home, rooms, Security, Climate, Office, etc.
+- **Helpers** — optional package example for light groups, door summary, office scenes (`packages/`)
+- **Docs** — how I install and deploy it (`docs/`)
 
-## Quick start
+The dashboards use [Mushroom](https://github.com/piitaya/lovelace-mushroom), [mini-graph-card](https://github.com/kalkih/mini-graph-card), and [card-mod](https://github.com/thomasloven/lovelace-card-mod) via HACS. No custom frontend code.
 
-### 1. Prerequisites
+---
 
-Install via [HACS](https://hacs.xyz/):
+## If you want to try it
 
-- [Mushroom Cards](https://github.com/piitaya/lovelace-mushroom)
-- [mini-graph-card](https://github.com/kalkih/mini-graph-card)
-- [card-mod](https://github.com/thomasloven/lovelace-card-mod)
+### Themes only
 
-Enable the **Recorder** integration (required for climate sparklines).
+Easiest path: install the themes and keep your own dashboards.
 
-### 2. Install themes (HACS)
+1. HACS → **Frontend** → add custom repo `https://github.com/simonhatfield84/idium-home-assistant` (category: **Theme**)
+2. Install, reload themes, pick **idium_dark** in your profile
 
-1. HACS → **Frontend** → **Explore & download repositories**
-2. Add custom repository: `https://github.com/simonhatfield84/idium-home-assistant` (category: **Theme**)
-3. Install **Idium Home Assistant**
-4. Profile → **Theme** → select **idium_dark** (or **idium_light**)
+Or copy `themes/*.yaml` into your HA `config/themes/`.
 
-Or manually copy `themes/` into your HA `config/themes/` and reload themes.
+### Full dashboards
 
-### 3. Configure
+You'll need the HACS cards above, plus **Recorder** enabled (for the climate graphs).
 
 ```bash
-cp config/idium.example.json config/idium.json
-# Edit entity IDs and owner_name for your home
+git clone https://github.com/simonhatfield84/idium-home-assistant.git
+cd idium-home-assistant
+cp config/idium.example.json config/idium.json   # edit entity IDs
+./scripts/generate.sh                            # → dist/ha_write_manifest.json
 ```
 
-See [docs/configuration.md](docs/configuration.md) for all options.
+Deploy the generated `.storage` files — see [docs/deploying-dashboards.md](docs/deploying-dashboards.md). **Restart Home Assistant once** after that.
 
-### 4. Generate dashboards
-
-```bash
-./scripts/generate.sh
-# Output: dist/ha_write_manifest.json
-```
-
-### 5. Deploy (one restart)
-
-Copy manifest entries into `config/.storage/` (or use `./scripts/deploy.sh /path/to/config`).
-
-**Restart Home Assistant once** after deploying `.storage` files.
-
-Full guide: [docs/installation.md](docs/installation.md) · [docs/deploying-dashboards.md](docs/deploying-dashboards.md)
-
-### 6. Optional helpers
+Optional helpers:
 
 ```bash
 cp packages/idium_helpers.yaml.example packages/idium_helpers.yaml
-# Customize entity IDs, add to configuration.yaml:
-# homeassistant:
-#   packages: !include_dir_named packages
+# tweak entity IDs, then include packages in configuration.yaml
 ```
 
-Restart once after adding packages.
+More detail: [docs/installation.md](docs/installation.md) · [docs/configuration.md](docs/configuration.md)
 
 ---
 
-## Repository layout
+## Layout
 
-```
-idium-home-assistant/
-├── assets/              # Logo, banner, branding
-├── config/              # User config (example + local idium.json)
-├── docs/                # Documentation
-├── generator/           # Dashboard generator (idium_gen.py)
-├── packages/            # Optional HA helpers (example)
-├── scripts/             # generate.sh, deploy.sh
-├── themes/              # idium_dark, idium_light
-├── dist/                # Generated manifest (gitignored)
-├── hacs.json
-├── CHANGELOG.md
-├── ROADMAP.md
-└── CONTRIBUTING.md
-```
+| Path | What |
+|------|------|
+| `themes/` | Dark and light themes |
+| `generator/` | Dashboard generator |
+| `config/` | Example + local `idium.json` |
+| `packages/` | Optional HA helpers (example) |
+| `scripts/` | `generate.sh`, `deploy.sh` |
+| `docs/` | Installation, config, design notes |
 
 ---
 
-## Dashboards included
+## Dashboards the generator builds
 
-| Dashboard | URL path | Description |
-|-----------|----------|-------------|
-| Home | `/lovelace/default_view` | Overview, security, climate, quick actions |
+| View | Path | Notes |
+|------|------|-------|
+| Home | `/lovelace/default_view` | Overview, security, climate |
 | Security | `/dashboard-home/home` | Alarm, doors, motion |
-| Office | `/dashboard-office/office` | Landscape panel: scenes, lighting, sound |
-| Bedroom, Living, Dining, Kitchen, Hall, Dressing, Climate | `/dashboard-*` | Room-first mobile layouts |
+| Office | `/dashboard-office/office` | Landscape: scenes, lights, Spotify |
+| Rooms | `/dashboard-*` | Bedroom, Living, Dining, Kitchen, Hall, Dressing, Climate |
 
-Customize room list and entities in `generator/idium_gen.py` or via `config/idium.json`.
+Entity IDs in the generator match *my* house. Change `config/idium.json` for the main cards; edit `generator/idium_gen.py` for rooms and scenes.
 
----
-
-## Design philosophy
-
-See [docs/design-system.md](docs/design-system.md) for tokens, typography, and component patterns.
-
-> The interface should feel like an operating system for the home — not a configuration panel.
+Design tokens and colours: [docs/design-system.md](docs/design-system.md)
 
 ---
 
 ## Contributing
 
-Contributions welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
-
-**UI design is frozen at v1.0.0.** Bug fixes and documentation improvements are encouraged; visual redesigns should be discussed in an issue first.
-
----
-
-## Security
-
-Report vulnerabilities privately — see [SECURITY.md](SECURITY.md).
+Pull requests and issues are fine — see [CONTRIBUTING.md](CONTRIBUTING.md). I'm not planning big visual changes for v1.0; mostly fixes and docs.
 
 ---
 
 ## License
 
-[MIT License](LICENSE) © Simon Hatfield
+[MIT](LICENSE) — Simon Hatfield · simonhatfield@me.com
 
----
-
-<p align="center">
-  <img src="assets/logo-mark.svg" alt="" width="48" height="48" />
-  <br />
-  <sub>Idium Home Assistant · Not affiliated with Home Assistant Core</sub>
-</p>
+Not affiliated with Home Assistant Core.

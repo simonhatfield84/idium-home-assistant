@@ -1,49 +1,34 @@
 # Dashboard generator
 
-`idium_gen.py` builds Home Assistant storage-mode Lovelace JSON for all Idium dashboards.
-
-## Usage
+`idium_gen.py` builds the Lovelace JSON for all my dashboards.
 
 ```bash
-# From repository root
+# from repo root
 ./scripts/generate.sh
 
-# Or directly
+# or
 python3 generator/idium_gen.py
 ```
 
-Output: `dist/ha_write_manifest.json` (12 files).
+Writes `dist/ha_write_manifest.json` (12 files).
 
-## Configuration
+## Config
 
-Copy `config/idium.example.json` → `config/idium.json`.
-
-Environment variables:
+`config/idium.json` — owner name, theme, main entity IDs. See [docs/configuration.md](../docs/configuration.md).
 
 | Variable | Default |
 |----------|---------|
 | `IDIUM_CONFIG` | `{repo}/config/idium.json` |
 | `IDIUM_MANIFEST` | `{repo}/dist/ha_write_manifest.json` |
 
-## Customization
+## Where to edit what
 
-| What | Where |
-|------|-------|
-| Owner name, alarm, key entities | `config/idium.json` |
-| Room list, scenes, sidebar | `generator/idium_gen.py` |
-| Design tokens (frozen v1.0) | `C` dict in `idium_gen.py` + `themes/` |
+| | File |
+|---|------|
+| Shared entities, greeting | `config/idium.json` |
+| Rooms, scenes, nav | `generator/idium_gen.py` |
+| Colours | `C` dict in `idium_gen.py` + `themes/` |
 
-## Version
+Version matches the root `VERSION` file. Bump both when you tag a release.
 
-Generator version matches repository `VERSION` file (currently **1.0.0**).
-
-Releasing a new version:
-
-1. Bump `VERSION` in `idium_gen.py` and root `VERSION` file
-2. Update `CHANGELOG.md`
-3. Run `./scripts/generate.sh`
-4. Tag `git tag v1.x.x`
-
-## No third-party dependencies
-
-Python 3.9+ standard library only (`json`, `pathlib`, `os`).
+Python 3.9+, stdlib only.

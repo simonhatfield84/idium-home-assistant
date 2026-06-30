@@ -1,34 +1,30 @@
 # Roadmap
 
-Idium **v1.0.0 design is frozen**. The items below are planned for future semver releases without changing the established visual language unless noted.
+Loose ideas — not promises. v1.0 looks how I want it at home; bigger visual changes would probably be a v2.
 
-## v1.1.x — Customization & portability
+## Maybe v1.1
 
-- [ ] Entity discovery helper script (suggest `config/idium.json` from HA API)
-- [ ] Split generator constants into `generator/rooms/` modules
-- [ ] Documented “minimal install” (themes only, no generator)
-- [ ] Example `configuration.yaml` snippet in docs
+- Script to suggest `config/idium.json` from HA entities
+- Split room config out of the big Python file
+- Better “themes only” docs
 
-## v1.2.x — Quality of life
+## Maybe v1.2
 
-- [ ] Per-room active scene tracking (Bedroom, Living Room)
-- [ ] Motion cards with last-triggered timestamps
-- [ ] Energy overview card (optional, off by default)
-- [ ] Light theme parity audit
+- Scene tracking on more rooms
+- Motion cards with last triggered time
+- Optional energy card
+- Light theme pass
 
-## v2.0.0 — Future (design review required)
+## v2 (if ever)
 
-- [ ] YAML-first dashboard config (reduce Python customization)
-- [ ] Optional light/dynamic accent themes
-- [ ] Tablet / wall-panel layout preset
-- [ ] i18n for greeting and labels
+- Less Python, more config files for rooms
+- Wall-tablet layout preset
+- Labels in other languages
 
-## Non-goals
+## Not planning
 
-- Replacing Home Assistant sidebar or core UI
-- Bundling Mushroom / card-mod (remain HACS dependencies)
-- Alarm panel replacement (works with native / third-party alarm entities)
+- Replacing HA's own UI
+- Vendoring Mushroom / card-mod
+- A custom alarm panel
 
-## How to influence the roadmap
-
-Open a [Feature request](.github/ISSUE_TEMPLATE/feature_request.yml) issue. UI changes that affect v1.x aesthetics will be tagged **design-review**.
+Got an idea? Open an issue.

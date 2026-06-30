@@ -1,109 +1,66 @@
 # Installation
 
-This guide installs Idium Home Assistant on a standard Home Assistant OS or Container setup.
+How I set this up on Home Assistant OS. Container installs work the same — paths are just `/config` instead of whatever yours is.
 
-## Requirements
+## Before you start
 
-| Requirement | Minimum |
-|-------------|---------|
+| | |
+|---|---|
 | Home Assistant | 2024.2+ |
-| Python (for generator) | 3.9+ |
-| HACS | Recommended |
+| Python (for the generator) | 3.9+ |
+| HACS | handy for the cards and themes |
 
-### Required HACS frontend modules
+Install these via HACS:
 
-Install before deploying dashboards:
+1. [Mushroom Cards](https://github.com/piitaya/lovelace-mushroom)
+2. [mini-graph-card](https://github.com/kalkih/mini-graph-card)
+3. [card-mod](https://github.com/thomasloven/lovelace-card-mod)
 
-1. **Mushroom Cards** — `piitaya/lovelace-mushroom`
-2. **mini-graph-card** — `kalkih/mini-graph-card`
-3. **card-mod** — `thomasloven/lovelace-card-mod`
+Turn on **Recorder** if you want the climate sparklines to show data.
 
-### Home Assistant integrations
+## Themes only
 
-- **Recorder** — required for 24-hour climate sparklines
-- **History** — recommended (enabled by default with recorder)
+1. HACS → add `https://github.com/simonhatfield84/idium-home-assistant` as a **Theme** repo
+2. Install, reload themes
+3. Profile → **idium_dark**
 
-## Option A — Themes only (HACS)
+Your existing dashboards stay as they are.
 
-1. Add Idium Home Assistant as a custom HACS repository (category: **Theme**)
-2. Install and reload themes
-3. Set your user profile theme to **idium_dark**
-
-You keep your existing dashboards; only the theme changes.
-
-## Option B — Full Idium dashboards
-
-### Step 1 — Clone or download
+## Full dashboards
 
 ```bash
 git clone https://github.com/simonhatfield84/idium-home-assistant.git
 cd idium-home-assistant
-```
-
-### Step 2 — Install themes
-
-**HACS:** as Option A.
-
-**Manual:**
-
-```bash
-cp themes/*.yaml /config/themes/
-# Settings → Dashboards → Themes → Reload themes
-```
-
-### Step 3 — Configure
-
-```bash
 cp config/idium.example.json config/idium.json
 ```
 
-Edit `owner_name`, `theme`, and `entities` to match your installation.
-
-### Step 4 — Generate
+Edit `idium.json` for your entities, then:
 
 ```bash
 ./scripts/generate.sh
 ```
 
-### Step 5 — Deploy
+Deploy — [deploying-dashboards.md](deploying-dashboards.md).
 
-See [deploying-dashboards.md](deploying-dashboards.md).
+Optional: copy `packages/idium_helpers.yaml.example` → `idium_helpers.yaml`, fix entity IDs, add packages to `configuration.yaml`.
 
-### Step 6 — Optional helpers
+**Restart Home Assistant once** after writing `.storage` files or adding packages. Hard-refresh the browser after that.
 
-```bash
-cp packages/idium_helpers.yaml.example packages/idium_helpers.yaml
-```
+## Quick check
 
-Customize entity IDs, then ensure `configuration.yaml` includes:
+- [ ] Theme is **idium_dark**
+- [ ] Mushroom cards load (no “Custom element doesn't exist”)
+- [ ] Home opens at `/lovelace/default_view`
+- [ ] Climate graphs draw lines (give recorder a little time)
+- [ ] No wall of “Entity not found” (you still need to map your IDs)
 
-```yaml
-homeassistant:
-  packages: !include_dir_named packages
-```
+## When something's wrong
 
-### Step 7 — Restart once
-
-After copying `.storage` dashboard files and/or new packages:
-
-1. **Settings → System → Restart Home Assistant**
-2. Hard-refresh browsers (`Cmd+Shift+R` / force-quit mobile app)
-
-## Verification checklist
-
-- [ ] Profile theme is **idium_dark**
-- [ ] Mushroom cards render (not “Custom element doesn't exist”)
-- [ ] Home dashboard loads at `/lovelace/default_view`
-- [ ] Climate graphs show lines (recorder running)
-- [ ] No widespread “Entity not found” (customize config)
-
-## Troubleshooting
-
-| Symptom | Fix |
+| Symptom | Try |
 |---------|-----|
-| Dashboard unchanged after deploy | Restart HA once; hard-refresh browser |
-| Mushroom cards missing | Install Mushroom via HACS; check `lovelace_resources` |
-| Graphs spin forever | Enable recorder; wait for history |
-| Wrong entity names | Edit `config/idium.json` and/or generator entity map |
+| Dashboard looks unchanged | Restart HA once, hard-refresh |
+| Mushroom missing | Install via HACS, check lovelace resources |
+| Graphs empty | Recorder on, wait for history |
+| Wrong entities | `config/idium.json` and/or edit the generator |
 
 Next: [Configuration](configuration.md)

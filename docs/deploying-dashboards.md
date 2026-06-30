@@ -1,71 +1,57 @@
 # Deploying dashboards
 
-Idium generates Home Assistant **storage-mode** Lovelace files written to `.storage/` in your config directory.
+The generator writes Home Assistant **storage-mode** Lovelace files — the same JSON that lives under `.storage/` in your config.
 
-## Generate manifest
+## Generate
 
 ```bash
 ./scripts/generate.sh
-# Creates dist/ha_write_manifest.json
+# → dist/ha_write_manifest.json
 ```
 
-The manifest maps relative paths to JSON content:
+That manifest maps paths to file contents:
 
-| File | Purpose |
-|------|---------|
-| `.storage/lovelace.lovelace` | Home overview |
+| File | What |
+|------|------|
+| `.storage/lovelace.lovelace` | Home |
 | `.storage/lovelace.dashboard_*` | Room dashboards |
-| `.storage/lovelace_dashboards` | Sidebar registry |
-| `.storage/lovelace_resources` | Mushroom / card-mod / mini-graph URLs |
+| `.storage/lovelace_dashboards` | Sidebar |
+| `.storage/lovelace_resources` | Card JS URLs |
 
-## Deploy methods
+## Copy to HA
 
-### File Editor / Studio Code Server
+**File Editor / Studio Code Server** — open each key in the manifest, create/overwrite the matching file under `/config/.storage/`, paste the JSON value.
 
-1. Open each key in `dist/ha_write_manifest.json`
-2. Create or overwrite the corresponding file under `/config/.storage/`
-3. Paste the JSON **value** (pretty-printed string content)
-
-### SSH / Samba
+**SSH / Samba:**
 
 ```bash
 ./scripts/deploy.sh /path/to/homeassistant/config
 ```
 
-Or copy files manually from the manifest.
+Or copy by hand.
 
-### Programmatic (API / MCP)
+## Restart once
 
-Write each manifest entry to HA config via your automation tool, then restart once.
+HA reads these at startup. Copy everything first, then **Settings → System → Restart** once. Hard-refresh clients after.
 
-## Important: one restart
-
-Home Assistant loads `.storage` Lovelace configs at startup. After deploying dashboard files:
-
-1. Run **Settings → System → Restart** once
-2. Wait for HA to return (30–60 seconds)
-3. Hard-refresh all clients
-
-Do **not** restart between individual file copies.
+Don't restart between individual files — one batch, one restart.
 
 ## After deploy
 
-1. Confirm resources: **Settings → Dashboards → Resources** — Mushroom, card-mod, mini-graph present
-2. Open **Home** dashboard — verify navigation pills and cards
-3. Set profile theme to **idium_dark**
-4. Fix “Entity not found” by updating `config/idium.json` and regenerating
+1. **Settings → Dashboards → Resources** — Mushroom, card-mod, mini-graph should be there
+2. Open Home, click around the nav pills
+3. Profile theme → **idium_dark**
+4. Fix any “Entity not found” in `config/idium.json`, regenerate, redeploy
 
-## Updating Idium
+## Updating
 
 ```bash
 git pull
 ./scripts/generate.sh
 ./scripts/deploy.sh /config
-# Restart HA once
+# restart once
 ```
-
-Bump cache: change `VERSION` in generator before release so browsers reload frontend modules.
 
 ## Rollback
 
-Home Assistant backs up `.storage` on some install methods. Keep a snapshot before deploying. To rollback, restore previous `.storage/lovelace.*` files and restart once.
+Back up `.storage/` before you overwrite. Restore the old files and restart if you need to undo.

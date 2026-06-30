@@ -4,7 +4,7 @@
   <circle cx="220" cy="320" r="16" fill="#30D158"/>
   <text x="400" y="280" fill="#F5F7FA" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Inter,sans-serif" font-size="72" font-weight="600">Idium</text>
   <text x="405" y="340" fill="#A3A8B1" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Inter,sans-serif" font-size="36" font-weight="400">Home Assistant</text>
-  <text x="405" y="400" fill="#6E737B" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Inter,sans-serif" font-size="28" font-weight="400">A calm operating system for your home</text>
+  <text x="405" y="400" fill="#6E737B" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Inter,sans-serif" font-size="28" font-weight="400">My Home Assistant dashboards</text>
   <rect x="400" y="450" width="760" height="120" rx="24" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.06)"/>
   <rect x="430" y="490" width="180" height="40" rx="12" fill="rgba(48,209,88,0.14)"/>
   <rect x="630" y="490" width="140" height="40" rx="12" fill="rgba(255,255,255,0.04)"/>

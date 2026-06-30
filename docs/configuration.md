@@ -1,15 +1,19 @@
 # Configuration
 
-Idium reads optional settings from `config/idium.json` (copy from `config/idium.example.json`).
+Copy the example and edit it for your home:
 
-Environment overrides:
+```bash
+cp config/idium.example.json config/idium.json
+```
+
+Override paths if you like:
 
 | Variable | Purpose |
 |----------|---------|
 | `IDIUM_CONFIG` | Path to config JSON |
-| `IDIUM_MANIFEST` | Output path for generated manifest |
+| `IDIUM_MANIFEST` | Where to write the generated manifest |
 
-## Config file reference
+## `idium.json`
 
 ```json
 {
@@ -32,58 +36,42 @@ Environment overrides:
 }
 ```
 
-### `owner_name`
+**`owner_name`** — shows up in the Home greeting (“Good morning, …”).
 
-Used in the Home greeting: “Good morning, {owner_name}”.
+**`theme`** — `idium_dark` or `idium_light`.
 
-### `theme`
-
-Lovelace theme key applied to all generated views. Use `idium_dark` or `idium_light`.
-
-### `entities`
-
-Subset of entities wired into configurable cards. The generator still contains a **reference room/scene map** — for full customization you will edit `generator/idium_gen.py` (see below).
+**`entities`** — the main entities wired into a few shared cards. Everything else (rooms, scenes, nav) still lives in `generator/idium_gen.py` unless you edit it there.
 
 | Key | Used for |
 |-----|----------|
-| `alarm` | Security cards, armed styling |
-| `whole_house_lights` | All Lights Off action, Home lighting |
-| `weather` | Home weather hero card |
-| `doors_status` | Aggregated door summary sensor |
-| `home_average_*` | Whole-home climate block |
-| `office_*` | Office dashboard lighting, media, scenes |
-| `living_room_lights` | Home dashboard living room tile |
+| `alarm` | Security cards |
+| `whole_house_lights` | All lights off, home lighting tile |
+| `weather` | Home weather card |
+| `doors_status` | Door summary |
+| `home_average_*` | Whole-home climate |
+| `office_*` | Office dashboard |
+| `living_room_lights` | Home living room tile |
 
-## Customizing rooms and scenes
+## Rooms and scenes
 
-The generator ships with a **reference home** layout (multiple rooms, Hue scenes, office scripts). To adapt:
+The generator is built around my floor plan — multiple rooms, Hue scenes, office scripts. To make it yours:
 
-1. Map your entities in `config/idium.json` for top-level cards
-2. Edit room definitions in `generator/idium_gen.py`:
-   - `NAV` / `NAV_SECONDARY` — navigation targets
-   - `SCENE_LABELS`, per-room `scene_grid(...)` calls
-   - `sidebar` registry — sidebar visibility
+1. Fix the keys in `config/idium.json` for the shared cards
+2. Edit `generator/idium_gen.py` for rooms, nav, scenes:
+   - `NAV` / `NAV_SECONDARY`
+   - per-room `scene_grid(...)` calls
+   - sidebar entries
 
-Future releases will externalize room configs (see [ROADMAP.md](../ROADMAP.md)).
+I may pull more of that into JSON later ([ROADMAP.md](../ROADMAP.md)).
 
-## Optional helpers package
+## Optional helpers
 
-`packages/idium_helpers.yaml.example` provides:
-
-- Light **groups** (living ceiling, dining, office room vs halo)
-- **Doors status** template sensor
-- **Home average** temperature/humidity templates
-- **Office scene tracking** (`input_select`, scripts, Custom automation)
-
-Rename to `idium_helpers.yaml` and adjust every entity ID before use.
+`packages/idium_helpers.yaml.example` has light groups, a doors template sensor, home average temp/humidity, and office scene tracking. Rename, edit every entity ID, then include via packages.
 
 ## Themes
 
-Themes live in `themes/`. After editing:
+After editing YAML in `themes/`: **Settings → Dashboards → Themes → Reload**. No restart needed for theme-only changes.
 
-- **Settings → Dashboards → Themes → Reload themes**
-- No restart required for theme-only changes
+## Cache busting
 
-## Resources cache busting
-
-The generator sets Lovelace resource URLs with `?v100` (from semver). Increment `VERSION` in `generator/idium_gen.py` when releasing; regenerate and redeploy `lovelace_resources`.
+The generator appends `?v100` (from the semver) to Lovelace resource URLs. Bump `VERSION` in the generator when you release, regenerate, redeploy `lovelace_resources`.

@@ -1,23 +1,16 @@
-## Summary
+## What changed
 
-<!-- What does this PR change and why? -->
+<!-- brief description -->
 
-## Type of change
+## Type
 
-- [ ] Bug fix (non-breaking)
-- [ ] Documentation
-- [ ] Generator / config portability
-- [ ] Optional helpers example
-- [ ] UI / design change (**requires linked design-review issue**)
-
-## Design freeze
-
-- [ ] This PR does **not** change v1.0 visual design
-- [ ] This PR changes visual design and issue #___ approved it
+- [ ] Bug fix
+- [ ] Docs
+- [ ] Generator / config
+- [ ] UI change (probably needs an issue first for v1.0)
 
 ## Checklist
 
-- [ ] `./scripts/generate.sh` succeeds
-- [ ] CHANGELOG updated (if user-visible)
-- [ ] Documentation updated (if needed)
-- [ ] No secrets or personal entity IDs committed
+- [ ] `./scripts/generate.sh` runs
+- [ ] CHANGELOG updated if user-visible
+- [ ] No personal entity IDs or secrets in the diff

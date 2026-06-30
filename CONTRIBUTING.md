@@ -1,26 +1,19 @@
-# Contributing to Idium Home Assistant
+# Contributing
 
-Thank you for your interest in Idium Home Assistant. This project aims to be a polished, community-maintained dashboard system — not a personal Home Assistant dump.
+Thanks for looking at this. It's mostly my home setup that I've put online in case it's useful — not a product with a roadmap team behind it.
 
-## Design freeze (v1.0.x)
+## What I'm happy to merge
 
-**Visual design is frozen for v1.0.x.** Please do not open PRs that change colours, spacing, card layouts, or navigation patterns without prior discussion.
+- Bug fixes (broken templates, wrong examples)
+- Documentation that's clearer or more accurate
+- Generator tweaks that make it easier to adapt to other homes
+- CI / packaging fixes
 
-Allowed without prior approval:
+## What needs a chat first
 
-- Bug fixes (broken templates, wrong entity references in examples)
-- Documentation improvements
-- Generator portability (config, clearer customization points)
-- CI, packaging, HACS metadata
-- Optional helpers (behind examples / flags)
+I'm not really looking to redesign the UI in v1.0. If you want to change colours, layout, or navigation, open an issue and we can talk before you spend time on a PR.
 
-Requires an issue with **design-review** label first:
-
-- New dashboard sections or layout changes
-- Theme token changes
-- Navigation structure changes
-
-## Development setup
+## Local setup
 
 ```bash
 git clone https://github.com/simonhatfield84/idium-home-assistant.git
@@ -30,34 +23,15 @@ cp config/idium.example.json config/idium.json
 python3 -m py_compile generator/idium_gen.py
 ```
 
-No runtime dependencies beyond Python 3.9+ standard library.
+Python 3.9+, stdlib only.
 
-## Pull request process
+## Pull requests
 
-1. Fork the repository and create a feature branch from `main`
-2. Update documentation if you change behaviour
-3. Add a CHANGELOG entry under `[Unreleased]` (or the appropriate version)
-4. Ensure `./scripts/generate.sh` succeeds
-5. Open a PR with a clear description of the change
+1. Branch from `main`
+2. Update docs if behaviour changes
+3. Add a line to `CHANGELOG.md` under `[Unreleased]` if it's user-visible
+4. Check `./scripts/generate.sh` still runs
 
-## Commit messages
+By contributing you agree your changes are MIT-licensed like the rest of the repo.
 
-Use clear, imperative subjects:
-
-- `Fix alarm card template when entity is unavailable`
-- `Document HACS theme installation`
-- `Add office_room_lights to example config`
-
-## Code style
-
-- Python: PEP 8, 4-space indent, type hints welcome in new code
-- YAML: 2-space indent
-- Markdown: wrap prose for readability; keep line length reasonable
-
-## Licensing
-
-By contributing, you agree that your contributions will be licensed under the [MIT License](LICENSE).
-
-## Questions
-
-Open a [Discussion](https://github.com/simonhatfield84/idium-home-assistant/discussions) or issue if you are unsure whether a change fits the design freeze.
+Questions: open an issue or discussion.

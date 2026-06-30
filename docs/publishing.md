@@ -1,25 +1,16 @@
-# Publishing
+# Publishing notes
 
-This repository is published at:
+Repo: **https://github.com/simonhatfield84/idium-home-assistant**
 
-**https://github.com/simonhatfield84/idium-home-assistant**
+Maintainer: Simon Hatfield — simonhatfield@me.com
 
-## Maintainer
+## Release checklist
 
-Simon Hatfield — simonhatfield@me.com
-
-## GitHub release
-
-1. **Releases → Draft new release** → tag `v1.0.0`
-2. Title: **Idium Home Assistant v1.0.0**
-3. Paste the `CHANGELOG.md` section for 1.0.0
-4. Publish
+1. Bump `VERSION` (root + generator)
+2. Update `CHANGELOG.md`
+3. `./scripts/generate.sh`
+4. Tag, push, draft release on GitHub from the changelog
 
 ## HACS
 
-Users add custom repository:
-
-- URL: `https://github.com/simonhatfield84/idium-home-assistant`
-- Category: **Theme**
-
-For full dashboards, point users to [installation.md](installation.md).
+Custom repo URL, category **Theme**. Full dashboards still need the generator — point people at [installation.md](installation.md).
