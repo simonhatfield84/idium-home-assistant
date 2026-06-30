@@ -36,7 +36,7 @@ You keep your existing dashboards; only the theme changes.
 ### Step 1 — Clone or download
 
 ```bash
-git clone https://github.com/simonhatfield/idium-home-assistant.git
+git clone https://github.com/simonhatfield84/idium-home-assistant.git
 cd idium-home-assistant
 ```
 

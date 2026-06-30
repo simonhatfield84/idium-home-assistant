@@ -2,7 +2,7 @@
 """
 Idium Home Assistant — dashboard generator.
 
-See https://github.com/simonhatfield/idium-home-assistant for documentation.
+See https://github.com/simonhatfield84/idium-home-assistant for documentation.
 """
 from __future__ import annotations
 

@@ -39,4 +39,4 @@ First public release of **Idium Home Assistant**. Design frozen for this major v
 - Entity IDs in the generator reflect a reference home; customize via `config/idium.json` and edit the generator for full room/scene mapping.
 - Deploying `.storage` dashboard files requires **one** Home Assistant restart.
 
-[1.0.0]: https://github.com/simonhatfield/idium-home-assistant/releases/tag/v1.0.0
+[1.0.0]: https://github.com/simonhatfield84/idium-home-assistant/releases/tag/v1.0.0

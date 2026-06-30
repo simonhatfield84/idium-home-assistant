@@ -2,7 +2,7 @@
 
 This repository is published at:
 
-**https://github.com/simonhatfield/idium-home-assistant**
+**https://github.com/simonhatfield84/idium-home-assistant**
 
 ## Maintainer
 
@@ -19,7 +19,7 @@ Simon Hatfield — simonhatfield@me.com
 
 Users add custom repository:
 
-- URL: `https://github.com/simonhatfield/idium-home-assistant`
+- URL: `https://github.com/simonhatfield84/idium-home-assistant`
 - Category: **Theme**
 
 For full dashboards, point users to [installation.md](installation.md).

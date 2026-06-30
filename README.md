@@ -39,7 +39,7 @@ Enable the **Recorder** integration (required for climate sparklines).
 ### 2. Install themes (HACS)
 
 1. HACS → **Frontend** → **Explore & download repositories**
-2. Add custom repository: `https://github.com/simonhatfield/idium-home-assistant` (category: **Theme**)
+2. Add custom repository: `https://github.com/simonhatfield84/idium-home-assistant` (category: **Theme**)
 3. Install **Idium Home Assistant**
 4. Profile → **Theme** → select **idium_dark** (or **idium_light**)
 

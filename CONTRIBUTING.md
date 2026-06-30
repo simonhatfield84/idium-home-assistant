@@ -23,7 +23,7 @@ Requires an issue with **design-review** label first:
 ## Development setup
 
 ```bash
-git clone https://github.com/simonhatfield/idium-home-assistant.git
+git clone https://github.com/simonhatfield84/idium-home-assistant.git
 cd idium-home-assistant
 cp config/idium.example.json config/idium.json
 ./scripts/generate.sh
@@ -60,4 +60,4 @@ By contributing, you agree that your contributions will be licensed under the [M
 
 ## Questions
 
-Open a [Discussion](https://github.com/simonhatfield/idium-home-assistant/discussions) or issue if you are unsure whether a change fits the design freeze.
+Open a [Discussion](https://github.com/simonhatfield84/idium-home-assistant/discussions) or issue if you are unsure whether a change fits the design freeze.
